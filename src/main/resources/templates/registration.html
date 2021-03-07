@@ -1,0 +1,492 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Employee Registartion Page</title>
+
+<!-- Custom fonts for this template-->
+<script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
+<link th:href="@{/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<!-- Page Validation-->
+<script type="text/javascript" th:src="@{/js/validation/registration.js?v=1.2}"></script>
+
+ <script>
+ function validDate(){
+	 var today = new Date().toISOString().split('T')[0];
+   document.getElementsByName("dob")[0].setAttribute('max', today);
+	}
+ </script>
+                
+</head>
+
+<body id="page-top" onload="validDate()">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+			id="accordionSidebar">
+
+			<!-- Sidebar - Brand -->
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="#">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-laugh-wink"></i>
+				</div>
+
+			</a>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
+
+			<!-- Nav Item - Dashboard -->
+			    <li class="nav-item active">
+                <a class="nav-link" href="/admin/home">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+           
+			<li class="nav-item" th:if="${userId == 1}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    
+                    <span>Master</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Master:</h6>
+                        <a class="collapse-item" href="/admin/shopType">Add Shop type</a> 
+                        <a class="collapse-item" href="/admin/viewShopType">View Shop type</a> 
+                        
+                    
+                    </div>
+                </div>
+            </li>
+			
+           
+				
+					<li class="nav-item active" th:if="${userId == 1}"><a class="nav-link"
+				href="/admin/registration"> <span>Registration</span></a></li>
+				
+            <!-- Nav Item - Utilities Collapse Menu -->
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+           
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+ <h2><u>Registration Form</u></h2>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                   
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                              
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        
+                        <!-- Nav Item - Messages -->
+                       
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${userNm}"></span>
+                                <span th:if="${check == 0}">
+                                <img class="img-profile rounded-circle"
+                                    th:src="${'public/load_image?imagePath='+userPic}">
+                                    </span>
+                                    <span th:if="${check == 1}">
+                                <img class="img-profile rounded-circle"
+                                    th:src="${'/admin/public/load_image?imagePath='+userPic}">
+                                    </span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/admin/profile">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                             <a class="dropdown-item" href="/admin/changePassword">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Change Password
+                                </a>     
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					 
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        
+     <!--    
+      <table class="table table-bordered" id="example">
+    <thead>
+      <tr>
+        <th style="width:5% !important;">Sl No</th>
+        <th style="width:10% !important;">Employee Name</th>
+        <th style="width:12% !important;">DOB</th>
+      </tr>
+       <tr th:each="emp,iter  : ${emp}" >
+      <td  th:text="${iter.index +1}" style="width:5% !important;"></td>
+    <td th:text="${emp.name}" style="width:10% !important;"></td>  
+     <td th:text="${emp.dob}" ></td>
+        </tr></thead></table>   -->
+          
+            <form autocomplete="off" action="#" th:action="@{/admin/registration}"
+                  th:object="${user}" method="post" class="form-horizontal"
+                  role="form" enctype="multipart/form-data" onsubmit="return validate();">
+               
+                <input type="number" th:field="*{id}"  name="id" style="display:none;"/>
+                
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="validation-message" style="color:red;"></label>
+                        <input type="text" th:field="*{name}" id="fName" placeholder="Name"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                               class="validation-message" style="color:red;"></label>
+                        <input type="text" th:field="*{lastName}"
+                               placeholder="Last Name" id="lName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" id="email" th:field="*{email}" placeholder="Email"
+                               class="form-control"/> <label
+                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                            class="validation-message" style="color:red;"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                    	
+                               <span th:if="${user.id ==null}">
+                        <input autocomplete="off" type="text" id="uName" th:field="*{userName}"  placeholder="User Name" 
+                               class="form-control"   />
+                               <label  th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                            class="validation-message" style="color:red;"></label>
+                               </span>
+                                <span th:if="${user.id !=null}">
+                        <input autocomplete="off" type="text" id="uName" th:field="*{userName}"  placeholder="User Name" 
+                               class="form-control" readonly />
+                               
+                                <label  th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                            class="validation-message" style="color:red;"></label></span>
+                               <!-- </span> -->
+                               
+                           
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" id="mobNo" th:field="*{mobileNo}" maxlength="10"
+                               placeholder="Mobile No" class="form-control"/> <label
+                            th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}"
+                            class="validation-message" style="color:red;"></label>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="date" id="dob" th:field="*{dob}"
+                               placeholder="DOB" class="form-control"/> <label
+                            th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
+                            class="validation-message" style="color:red;"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="file" name="profilePicMul" label="upload"  id="profilepic" placeholder="uploade Profile"
+                               class="form-control" accept="image/gif, image/jpeg, image/png" />  
+                    </div>
+                </div>
+                
+                 <span th:if="*{profilePic}">
+ <img th:src="${'/admin/public/load_image?imagePath='+user.profilePic}" style="width:80px;height: 80px;">
+ </span>
+
+                
+				 <div class="form-group">
+                    <div class="col-sm-9">
+                     <span th:if="${user.id ==null}" >
+                        <input autocomplete="off" type="password" th:field="*{password}"
+                               placeholder="Password" class="form-control"/> <label
+                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                            class="validation-message" style="color:red;"></label></span>
+                              <span th:if="${user.id !=null}" >
+                        <input autocomplete="off" readonly type="password" name="password" id="password" th:value="${Pass}"
+                               placeholder="Password" class="form-control"/> <label
+                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                            class="validation-message" style="color:red;"></label></span>
+                            
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                    </div>
+                </div>
+
+                <!-- <h2><span class="text-success" th:text="${successMessage}"></span></h2> -->
+                
+
+            </form>
+        </div>
+    </div>
+ 		
+       
+					
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- End of Main Content -->
+
+				<!-- Footer -->
+				<footer class="sticky-footer bg-white">
+					<div class="container my-auto">
+						<div class="copyright text-center my-auto">
+							<span>Copyright &copy; Beta Centauri Pvt Ltd 2021</span>
+						</div>
+					</div>
+				</footer>
+				<!-- End of Footer -->
+
+			</div>
+			<!-- End of Content Wrapper -->
+
+		</div>
+		<!-- End of Page Wrapper -->
+
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
+
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to
+							Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are
+						ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+						<form th:action="@{/logout}" method="get">
+							<button class="btn btn-primary" name="registration" type="Submit">Logout
+							</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript-->
+		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+		<!-- Core plugin JavaScript-->
+		<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+		<!-- Custom scripts for all pages-->
+		<script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+		<!-- Page level plugins -->
+		<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+
+		<!-- Page level custom scripts -->
+		<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+		<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+		<script  type="text/javascript" th:inline="javascript">
+                var message= [[${successMessage}]];
+                if(message != null && message != undefined && message != '')
+                	{
+                	swal("User Details", message, "success");
+                	}
+                var message= [[${errorMailMessage}]];
+                if(message != null && message != undefined && message != '')
+                	{
+                	$("#email").focus();
+                	swal("Email Error", message, "error");
+                	}
+                	var message= [[${errorUserMessage}]];
+                    if(message != null && message != undefined && message != '')
+                    	{
+                    	$("#uName").select();
+                    	swal("User Name Existing", message, "error");
+                    	}
+                function validate()
+                {
+                	var mobNo = $("#mobNo").val();
+                	
+                	
+                	if(!(mobNo != null && mobNo != undefined && mobNo.trim() != '' && mobNo.trim().length != 0))
+                		{
+                		$("#mobNo").focus();
+                		sweetAlert("Field Blank", "Mobile Number can not be left blank.", "error");
+                		//alert('Project Name can not be left blank.');
+                		
+                		return false;
+                		}
+                	
+                	 if (!/^[0-9]+$/.test(mobNo)) {
+             	       // alert("please enter numbers only for ph no");
+             	       $("#mobNo").select();
+                		sweetAlert("Wrong Input", "please enter numbers only for phone number..", "error");
+
+             	        return false;
+             	    }
+
+                	var chkdate = $("#dob").val();
+                	
+                    var cdate= new Date(chkdate);
+                    var today=new Date();
+                    today.setHours(0,0,0,0);
+                	 
+                	 
+                	  var birthyr= parseInt(chkdate, 10);
+                	  var today = new Date();
+                	  var year=today.getFullYear();
+                	   var age=year-birthyr;
+                	 
+                	  if ( age < 20)
+                	  { 
+                	    //alert("Age must be greater than 18");
+                				$("#dob").focus();
+
+                		sweetAlert("Wrong Input", "Age must be greater than 20..", "error");
+
+
+                	    return false;
+                	  }
+                	
+                	 if([[${user.profilePic}]] != null && [[${user.profilePic}]] != undefined)
+                		 {
+                		 return true;
+                		 }
+                	var fup = $("#profilepic").val();
+                	if(fup == undefined || fup == null ||  fup == '')
+                		{
+                		$("#profilepic").focus();
+                		sweetAlert("File Format", "Kindly choose profile pic.", "error");
+                		//swal("Error","Kindly choose profile pic.");
+                		//alert('Kindly choose profile pic.');
+                		return false;
+                		}
+                    var fileName = fup;
+                    var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+
+                if(!(ext =="JPG" || ext=="jpg" || ext=="PNG" || ext=="png" || ext=="JPEG" || ext=="jpeg"))
+                {
+                	sweetAlert("File Format", "Please Upload the file with extension jpg or jpeg or png", "error");
+                	//swal("Error:", "Please Upload the file with extension jpg or jpeg or png");
+                	 //alert("Please Upload the file with extension jpg or jpeg or png");
+                    return false;
+                }
+
+
+                	return true;
+                	
+                }
+                </script>
+                
+</body>
+
+</html>
+ 
